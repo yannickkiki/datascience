@@ -9,10 +9,6 @@ val_df = read_csv("prediction/test.csv")
 val_df = val_df.join(items_df, on="item_id")
 del items_df
 
-from numpy import in1d
-in1d(val_df["item_category_id"].unique(), df["item_category_id"].unique(),
-     assume_unique=True)
-
 #just for make submission
 result = 37.2
 r = val_df[["ID"]]
