@@ -10,7 +10,7 @@ val_df = val_df.join(items_df, on="item_id")
 del items_df
 
 #just for make submission
-result = 37.2
+result = 0.3
 r = val_df[["ID"]]
 from pandas import Series
 r["item_cnt_month"] = Series([result]*len(val_df))
