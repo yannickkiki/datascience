@@ -75,3 +75,15 @@ def feature_X(data_X):
 
 data_X["avXYZ"] = data_X.apply(lambda row: norm(row.avX, row.avY, row.avZ), axis = 1)
     data_X["laXYZ"] = data_X.apply(lambda row: norm(row.laX, row.laY, row.laZ), axis = 1)
+    
+npmin, npmax = np.finfo(np.float32).min, np.finfo(np.float32).max
+from sklearn.preprocessing import MinMaxScaler
+sc = MinMaxScaler(feature_range = (npmin, npmax))
+sc.fit(X)
+X = sc.transform(X)
+
+numpy.finfo(numpy.float64).max
+
+import copy
+X_backup = copy.deepcopy(X)
+X_backup.head()

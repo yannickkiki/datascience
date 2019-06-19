@@ -1,7 +1,5 @@
-from pandas import read_csv
-data_X = read_csv("datasets/X_train.csv")
-validation_X = read_csv("datasets/X_test.csv")
-data_y = read_csv("datasets/y_train.csv")
+from funcs import read_data
+data_X, validation_X, data_y = read_data()
 
 n_samples, n_timesteps = len(data_y), 128
 validation_n_samples = len(validation_X)//n_timesteps

@@ -1,13 +1,17 @@
 import pandas as pd
-from funcs import extract_features
+from beans import extract_features
 
 pt_model = pd.read_pickle("nasnetmobile.model")
 
 batch_size = 32
-    
-train_features, train_labels, ctr = extract_features('dataset/training_set', 80,
+
+import os
+train_sample_count = len(os.listdir('dataset/train/sneakers'))+ len(os.listdir('dataset/train/tshirt'))
+train_features, train_labels, ctr = extract_features('dataset/train', train_sample_count,
                                                 pt_model, batch_size)  # Agree with our small dataset size
-test_features, test_labels, cte = extract_features('dataset/test_set', 200,
+#test_sample_count = len(os.listdir('dataset/test/sneakers'))+ len(os.listdir('dataset/test/tshirt'))
+test_sample_count =  len(os.listdir('dataset/val/tshirt'))
+test_features, test_labels, cte = extract_features('dataset/val', test_sample_count,
                                               pt_model, batch_size)
 
 # Define model
@@ -24,7 +28,8 @@ model.summary()
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
               
 # Train model
-history = model.fit(train_features, train_labels, epochs=50, batch_size=batch_size)
+history = model.fit(train_features, train_labels, epochs=25,
+                    batch_size=batch_size, validation_data = (test_features, test_labels))
 
 model.evaluate(train_features, train_labels)
 model.evaluate(test_features, test_labels)
