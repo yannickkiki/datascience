@@ -6,4 +6,3 @@ import pandas as pd
 
 model = NASNetMobile(weights='imagenet')
 pd.to_pickle(model, "nasnetmobile.model")
-
